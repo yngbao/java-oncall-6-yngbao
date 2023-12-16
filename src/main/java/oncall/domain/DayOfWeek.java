@@ -1,5 +1,6 @@
 package oncall.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public enum DayOfWeek {
@@ -14,6 +15,19 @@ public enum DayOfWeek {
 	}
 	
 	public List<String> getDays() {
+		return days;
+	}
+	
+	public List<String> fromStart(String input) {
+		List<String> days = new ArrayList<>();
+		int index = WHOLE.days.indexOf(input);
+		while(days.size() < WHOLE.getDays().size()) {
+			if (index >= WHOLE.getDays().size()) {
+				index = 0;
+			}
+			days.add(WHOLE.getDays().get(index));
+			index++;
+		}
 		return days;
 	}
 }
