@@ -1,24 +1,45 @@
 package oncall.validation;
 
 import oncall.domain.Calendar;
+import oncall.domain.Workers;
+import oncall.utils.Utils;
 
 public class Validation {
 	private static final int FIRST_INPUT_SIZE = 2;
-	private static final char SPLIT_CHARACTER = ',';
+	private static final int INDEX_ZERO = 0;
+	private static final int INDEX_FIRST = 1;
+	private static final String NOTHING = "";
 	
-	public static void validateFirstInputSize(String[] inputs) {
+	public static void validateWorkersCount(String[] inputs) {
+		if (!isReasonableCount(inputs)) {
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	public static void validateFirstInput(String input) {
+		String[] inputs = Utils.splitString(input);
+		validateFirstInputSize(inputs);
+		validateMonth(Integer.parseInt(inputs[INDEX_ZERO]));
+		validateDayOfWeek(inputs[INDEX_FIRST]);
+	}
+	
+	private static boolean isReasonableCount(String[] inputs) {
+		return inputs.length >= Workers.MIN && inputs.length <= Workers.MAX;
+	}
+	
+	private static void validateFirstInputSize(String[] inputs) {
 		if (!isValidSize(inputs)) {
 			throw new IllegalArgumentException();
 		}
 	}
 	
-	public static void validateDayOfWeek(String input) {
+	private static void validateDayOfWeek(String input) {
 		if (!isValidDayName(input)) {
 			throw new IllegalArgumentException();
 		}
 	}
 	
-	public static void validateMonth(int date) {
+	private static void validateMonth(int date) {
 		if (!isValidMonth(date)) {
 			throw new IllegalArgumentException();
 		}
