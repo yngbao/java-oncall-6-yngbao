@@ -24,6 +24,9 @@ public class Workday {
 						new AbstractMap.SimpleEntry<>(date, dayOfWeek);
 				days.add(entry);
 				date++;
+				if(days.size() >= lastDay) {
+					break;
+				}
 			}
 		}
 	}
