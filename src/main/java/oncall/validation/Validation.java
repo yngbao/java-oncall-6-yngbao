@@ -1,5 +1,7 @@
 package oncall.validation;
 
+import java.util.List;
+
 import oncall.domain.Calendar;
 import oncall.domain.Workers;
 import oncall.utils.Utils;
@@ -10,24 +12,24 @@ public class Validation {
 	private static final int INDEX_FIRST = 1;
 	private static final String NOTHING = "";
 	
-	public static void validateWorkersCount(String[] inputs) {
+	public static void validateWorkersCount(List<String> inputs) {
 		if (!isReasonableCount(inputs)) {
 			throw new IllegalArgumentException();
 		}
 	}
 	
 	public static void validateFirstInput(String input) {
-		String[] inputs = Utils.splitString(input);
+		List<String> inputs = Utils.splitString(input);
 		validateFirstInputSize(inputs);
-		validateMonth(Integer.parseInt(inputs[INDEX_ZERO]));
-		validateDayOfWeek(inputs[INDEX_FIRST]);
+		validateMonth(Integer.parseInt(inputs.get(INDEX_ZERO)));
+		validateDayOfWeek(inputs.get(INDEX_FIRST));
 	}
 	
-	private static boolean isReasonableCount(String[] inputs) {
-		return inputs.length >= Workers.MIN && inputs.length <= Workers.MAX;
+	private static boolean isReasonableCount(List<String> inputs) {
+		return inputs.size() >= Workers.MIN && inputs.size() <= Workers.MAX;
 	}
 	
-	private static void validateFirstInputSize(String[] inputs) {
+	private static void validateFirstInputSize(List<String> inputs) {
 		if (!isValidSize(inputs)) {
 			throw new IllegalArgumentException();
 		}
@@ -45,8 +47,8 @@ public class Validation {
 		}
 	}
 	
-	private static boolean isValidSize(String[] inputs) {
-		return inputs.length == FIRST_INPUT_SIZE;
+	private static boolean isValidSize(List<String> inputs) {
+		return inputs.size() == FIRST_INPUT_SIZE;
 	}
 	
 	private static boolean isValidMonth(int date) {
