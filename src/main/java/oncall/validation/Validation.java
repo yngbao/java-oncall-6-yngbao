@@ -1,6 +1,7 @@
 package oncall.validation;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import oncall.domain.Calendar;
 import oncall.domain.Workers;
@@ -11,6 +12,21 @@ public class Validation {
 	private static final int INDEX_ZERO = 0;
 	private static final int INDEX_FIRST = 1;
 	private static final String NOTHING = "";
+	
+	public static void validateWorkers(String input) {
+		List<String> inputs = Utils.splitString(input);
+		validateWorkersCount(inputs);
+		validateDistinctName(inputs);
+		for (String name : inputs) {
+			validateNameSize(name);
+		}
+	}
+	
+	public static void validateDistinctName(List<String> inputs) {
+		if (!isUniqueName(inputs)) {
+			throw new IllegalArgumentException();
+		}
+	}
 	
 	public static void validateNameSize(String input) {
 		if (!isReasonableName(input)) {
@@ -29,6 +45,13 @@ public class Validation {
 		validateFirstInputSize(inputs);
 		validateMonth(Integer.parseInt(inputs.get(INDEX_ZERO)));
 		validateDayOfWeek(inputs.get(INDEX_FIRST));
+	}
+	
+	private static boolean isUniqueName(List<String> inputs) {
+		List<String> distinct = inputs.stream()
+				.distinct()
+				.collect(Collectors.toList());
+		return inputs.size() == distinct.size();
 	}
 	
 	private static boolean isReasonableName(String input) {
