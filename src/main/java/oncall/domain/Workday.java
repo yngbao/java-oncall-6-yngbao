@@ -1,6 +1,7 @@
 package oncall.domain;
 
 import java.util.AbstractMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -24,5 +25,15 @@ public class Workday {
 				days.add(entry);
 			}
 		}
+	}
+	
+	public String findDayOfWeek(int date) {
+		String dayOfWeek = days.stream()
+				.filter(entry -> entry.getKey() == date)
+				.map(entry -> entry.getValue())
+				.findAny()
+				.get();
+		
+		return dayOfWeek;
 	}
 }
