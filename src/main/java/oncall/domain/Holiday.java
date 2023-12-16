@@ -1,5 +1,7 @@
 package oncall.domain;
 
+import java.util.stream.Stream;
+
 public enum Holiday {
 	신정(1,1),
 	삼일절(3,1),
@@ -24,5 +26,11 @@ public enum Holiday {
 	
 	public int getDate() {
 		return date;
+	}
+	
+	public static boolean isHoliday(int month, int date) {
+		return Stream.of(Holiday.values())
+		.filter(i -> i.getMonth() == month && i.getDate() == date)
+		.findAny().isPresent();
 	}
 }

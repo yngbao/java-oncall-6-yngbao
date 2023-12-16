@@ -3,6 +3,7 @@ package oncall.validation;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import camp.nextstep.edu.missionutils.Console;
 import oncall.domain.Calendar;
 import oncall.domain.DayOfWeek;
 import oncall.domain.Workers;
@@ -24,27 +25,31 @@ public class Validation {
 		return inputs;
 	}
 	
-	public static void validateFirstInput(String input) {
+	public static List<String> validateMonthSetting(String input) {
 		List<String> inputs = Utils.splitString(input);
 		validateFirstInputSize(inputs);
 		validateMonth(Integer.parseInt(inputs.get(INDEX_ZERO)));
 		validateDayOfWeek(inputs.get(INDEX_FIRST));
+		return inputs;
 	}
 	
 	private static void validateDistinctName(List<String> inputs) {
 		if (!isUniqueName(inputs)) {
+			Console.close();
 			throw new IllegalArgumentException();
 		}
 	}
 	
 	private static void validateNameSize(String input) {
 		if (!isReasonableName(input)) {
+			Console.close();
 			throw new IllegalArgumentException();
 		}
 	}
 	
 	private static void validateWorkersCount(List<String> inputs) {
 		if (!isReasonableCount(inputs)) {
+			Console.close();
 			throw new IllegalArgumentException();
 		}
 	}
@@ -68,18 +73,21 @@ public class Validation {
 	
 	private static void validateFirstInputSize(List<String> inputs) {
 		if (!isValidSize(inputs)) {
+			Console.close();
 			throw new IllegalArgumentException();
 		}
 	}
 	
 	private static void validateDayOfWeek(String input) {
 		if (!isValidDayName(input)) {
+			Console.close();
 			throw new IllegalArgumentException();
 		}
 	}
 	
 	private static void validateMonth(int date) {
 		if (!isValidMonth(date)) {
+			Console.close();
 			throw new IllegalArgumentException();
 		}
 	}

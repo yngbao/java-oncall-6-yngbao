@@ -30,4 +30,11 @@ public enum DayOfWeek {
 		}
 		return days;
 	}
+	
+	public static boolean isWeekDay(String dayOfWeek) {
+		if (WEEKDAY.getDays().contains(dayOfWeek)) {
+			return true;
+		}
+		return false;
+	}
 }
