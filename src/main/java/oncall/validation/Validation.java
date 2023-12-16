@@ -12,6 +12,12 @@ public class Validation {
 	private static final int INDEX_FIRST = 1;
 	private static final String NOTHING = "";
 	
+	public static void validateNameSize(String input) {
+		if (!isReasonableName(input)) {
+			throw new IllegalArgumentException();
+		}
+	}
+	
 	public static void validateWorkersCount(List<String> inputs) {
 		if (!isReasonableCount(inputs)) {
 			throw new IllegalArgumentException();
@@ -23,6 +29,12 @@ public class Validation {
 		validateFirstInputSize(inputs);
 		validateMonth(Integer.parseInt(inputs.get(INDEX_ZERO)));
 		validateDayOfWeek(inputs.get(INDEX_FIRST));
+	}
+	
+	private static boolean isReasonableName(String input) {
+		return !input.equals(NOTHING) 
+				&& !input.equals(null)
+				&& input.length() <= Workers.MAX_NAME_LENGTH;
 	}
 	
 	private static boolean isReasonableCount(List<String> inputs) {
