@@ -18,7 +18,7 @@ public enum DayOfWeek {
 		return days;
 	}
 	
-	public List<String> fromStart(String input) {
+	public static List<String> fromStart(String input) {
 		List<String> days = new ArrayList<>();
 		int index = WHOLE.days.indexOf(input);
 		while(days.size() < WHOLE.getDays().size()) {
