@@ -1,6 +1,9 @@
 package oncall.service;
 
 import static oncall.view.message.SystemMessage.*;
+
+import java.util.Map.Entry;
+
 import static oncall.view.message.ErrorMessage.*;
 
 import oncall.domain.Calendar;
@@ -9,6 +12,7 @@ import oncall.domain.Workday;
 import oncall.domain.Workers;
 import oncall.view.ErrorView;
 import oncall.view.InputView;
+import oncall.view.OutputView;
 
 public class Service {
 	Calendar calendar;
@@ -27,19 +31,12 @@ public class Service {
 		}
 	}
 	
-	public void weekdayPeopleSetting() {
+	public void workersSetting() {
 		try {
-			String input = InputView.getInput(INPUT_WEEKDAY_PEOPLE);
-			weekdayPeople = new Workers(input);
-		} catch (IllegalArgumentException e) {
-			ErrorView.printError(INPUT_ERROR);
-		}
-	}
-	
-	public void holidayPeopleSetting() {
-		try {
-			String input = InputView.getInput(INPUT_HOLIDAY_PEOPLE);
-			holidayPeople = new Workers(input);
+			String weekdayInput = InputView.getInput(INPUT_WEEKDAY_PEOPLE);
+			weekdayPeople = new Workers(weekdayInput);
+			String weekendInput = InputView.getInput(INPUT_HOLIDAY_PEOPLE);
+			holidayPeople = new Workers(weekendInput);
 		} catch (IllegalArgumentException e) {
 			ErrorView.printError(INPUT_ERROR);
 		}
@@ -51,7 +48,8 @@ public class Service {
 	}
 	
 	public void showResult() {
-		
+		for (Entry<Integer, String> entry : workday.getDays())
+		OutputView.printWorkday(calendar.getMonth(), entry, "worker");
 	}
 	
 }

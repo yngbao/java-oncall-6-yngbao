@@ -1,12 +1,13 @@
 package oncall.domain;
 
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
 public class Workday {
 	private int month;
-	private List<Entry<Integer, String>> days;
+	private List<Entry<Integer, String>> days = new ArrayList<>();
 	
 	public Workday(int month) {
 		this.month = month;
@@ -22,6 +23,7 @@ public class Workday {
 				Entry<Integer, String> entry = 
 						new AbstractMap.SimpleEntry<>(date, dayOfWeek);
 				days.add(entry);
+				date++;
 			}
 		}
 	}
