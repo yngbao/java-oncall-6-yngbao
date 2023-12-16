@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import oncall.domain.Calendar;
+import oncall.domain.DayOfWeek;
 import oncall.domain.Workers;
 import oncall.utils.Utils;
 
@@ -13,31 +14,14 @@ public class Validation {
 	private static final int INDEX_FIRST = 1;
 	private static final String NOTHING = "";
 	
-	public static void validateWorkers(String input) {
+	public static List<String> validateWorkers(String input) {
 		List<String> inputs = Utils.splitString(input);
 		validateWorkersCount(inputs);
 		validateDistinctName(inputs);
 		for (String name : inputs) {
 			validateNameSize(name);
 		}
-	}
-	
-	public static void validateDistinctName(List<String> inputs) {
-		if (!isUniqueName(inputs)) {
-			throw new IllegalArgumentException();
-		}
-	}
-	
-	public static void validateNameSize(String input) {
-		if (!isReasonableName(input)) {
-			throw new IllegalArgumentException();
-		}
-	}
-	
-	public static void validateWorkersCount(List<String> inputs) {
-		if (!isReasonableCount(inputs)) {
-			throw new IllegalArgumentException();
-		}
+		return inputs;
 	}
 	
 	public static void validateFirstInput(String input) {
@@ -45,6 +29,24 @@ public class Validation {
 		validateFirstInputSize(inputs);
 		validateMonth(Integer.parseInt(inputs.get(INDEX_ZERO)));
 		validateDayOfWeek(inputs.get(INDEX_FIRST));
+	}
+	
+	private static void validateDistinctName(List<String> inputs) {
+		if (!isUniqueName(inputs)) {
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	private static void validateNameSize(String input) {
+		if (!isReasonableName(input)) {
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	private static void validateWorkersCount(List<String> inputs) {
+		if (!isReasonableCount(inputs)) {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	private static boolean isUniqueName(List<String> inputs) {
@@ -91,7 +93,7 @@ public class Validation {
 	}
 	
 	private static boolean isValidDayName(String input) {
-		return Calendar.DAY_OF_WEEK.contains(input);
+		return DayOfWeek.WHOLE.getDays().contains(input);
 	}
 	
 }
