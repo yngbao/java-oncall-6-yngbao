@@ -49,7 +49,7 @@ public class Service {
 	
 	public void showResult() {
 		for (Entry<Integer, String> entry : workday.getDays())
-		OutputView.printWorkday(calendar.getMonth(), entry, "worker");
+		OutputView.printWorkday(calendar.getMonth(), entry);
 	}
 	
 }
